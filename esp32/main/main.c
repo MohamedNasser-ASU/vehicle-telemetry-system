@@ -19,7 +19,7 @@ void app_main(void){
         .ulp_mode = ADC_ULP_MODE_DISABLE,
     };
     
-    // make a new adc1 uniut
+    // make a new adc1 unit
     ESP_ERROR_CHECK(adc_oneshot_new_unit(&init_config1, &adc1_handle));
 
     // set resolution to default 
@@ -28,17 +28,20 @@ void app_main(void){
     .atten = ADC_ATTEN_DB_12,
     };
 
-    // configure channel 6 because i chose pin 34
+    // configure channels 6 and 7 because i chose pins 34 and 45
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, ADC_CHANNEL_6, &config));
+    ESP_ERROR_CHECK(adc_oneshot_config_channel(adc1_handle, ADC_CHANNEL_7, &config));
     
 
     while (1){
 
         // read adc1 raw analog output
-        int adc1_out;
-        adc_oneshot_read(adc1_handle, ADC_CHANNEL_6, &adc1_out);
+        int adc1_VRx;
+        int adc1_VRy;
+        adc_oneshot_read(adc1_handle, ADC_CHANNEL_6, &adc1_VRx);
+        adc_oneshot_read(adc1_handle, ADC_CHANNEL_7, &adc1_VRy);
         vTaskDelay(pdMS_TO_TICKS(200));
-        printf("%d\n", adc1_out);
+        printf("X: %d ,Y: %d\n", adc1_VRx, adc1_VRy );
     }
 
 
