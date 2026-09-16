@@ -1,0 +1,6 @@
+"-specs=/home/june/Code/Projects/vehicle-telemetry-system/esp32/build/bootloader/specs/picolibc.specs"
+-Wno-frame-address
+-mlongcalls
+-fno-builtin-memcpy
+-fno-builtin-memset
+-fno-builtin-bzero
