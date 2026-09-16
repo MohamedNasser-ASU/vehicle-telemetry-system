@@ -46,11 +46,11 @@ void app_main(void){
         // mapping
         int8_t digital_VRx, digital_VRy;
         // VRx mapping
-        if (adc1_VRx >= 1947 && adc1_VRx <= 1961) {
+        if (adc1_VRx >= 1950 && adc1_VRx <= 1959) {
             // center
             digital_VRx = 0;
         }
-        else if ( adc1_VRx < 1947){
+        else if ( adc1_VRx < 1950){
             // negative (left)
             digital_VRx = ( (99 * adc1_VRx) /1949) - 100;
         }
@@ -72,6 +72,14 @@ void app_main(void){
             // positive side
             digital_VRy = 1 + ((adc1_VRy - 1895) * 99) / (4095 - 1895);
         }
+
+        // extra deadzone 
+        if (digital_VRx >= -3 && digital_VRx <= 3)
+        digital_VRx = 0;
+        
+        if (digital_VRy >= -3 && digital_VRy <= 3)
+        digital_VRy = 0;
+
         // print value
         vTaskDelay(pdMS_TO_TICKS(200));
         printf("X: %d ,Y: %d\n", digital_VRx, digital_VRy );
