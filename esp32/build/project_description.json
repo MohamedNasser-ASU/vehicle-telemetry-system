@@ -1,7 +1,7 @@
 {
     "version":            "1.3",
     "project_name":       "esp32",
-    "project_version":    "a57854c-dirty",
+    "project_version":    "720e929-dirty",
     "project_path":       "/home/june/Code/Projects/vehicle-telemetry-system/esp32",
     "idf_path":           "/opt/esp-idf",
     "build_dir":          "/home/june/Code/Projects/vehicle-telemetry-system/esp32/build",

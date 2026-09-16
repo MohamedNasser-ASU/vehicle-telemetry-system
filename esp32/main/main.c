@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/projdefs.h"
@@ -5,6 +6,7 @@
 #include "esp_adc/adc_oneshot.h"
 #include "esp_err.h"
 #include "hal/adc_types.h"
+
 
 #define LED GPIO_NUM_2
 
@@ -40,8 +42,40 @@ void app_main(void){
         int adc1_VRy;
         adc_oneshot_read(adc1_handle, ADC_CHANNEL_6, &adc1_VRx);
         adc_oneshot_read(adc1_handle, ADC_CHANNEL_7, &adc1_VRy);
+        
+        // mapping
+        int8_t digital_VRx, digital_VRy;
+        // VRx mapping
+        if (adc1_VRx >= 1947 && adc1_VRx <= 1961) {
+            // center
+            digital_VRx = 0;
+        }
+        else if ( adc1_VRx < 1947){
+            // negative (left)
+            digital_VRx = ( (99 * adc1_VRx) /1949) - 100;
+        }
+        else{
+            // positive (right)
+            digital_VRx = 1 + ((adc1_VRx - 1960) * 99) / (4095 - 1960);
+        }
+        
+        // VRy mapping
+        if (adc1_VRy >= 1887 && adc1_VRy <= 1894) {
+            // center
+            digital_VRy = 0;
+        }
+        else if (adc1_VRy < 1887) {
+            // negative side
+            digital_VRy = ((99 * adc1_VRy) / 1886) - 100;
+        }
+        else {
+            // positive side
+            digital_VRy = 1 + ((adc1_VRy - 1895) * 99) / (4095 - 1895);
+        }
+        // print value
         vTaskDelay(pdMS_TO_TICKS(200));
-        printf("X: %d ,Y: %d\n", adc1_VRx, adc1_VRy );
+        printf("X: %d ,Y: %d\n", digital_VRx, digital_VRy );
+
     }
 
 
