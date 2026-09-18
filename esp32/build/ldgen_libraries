@@ -196,3 +196,4 @@
 /home/june/Code/Projects/vehicle-telemetry-system/esp32/build/esp-idf/rt/librt.a
 /home/june/Code/Projects/vehicle-telemetry-system/esp32/build/esp-idf/spiffs/libspiffs.a
 /home/june/Code/Projects/vehicle-telemetry-system/esp32/build/esp-idf/main/libmain.a
+/home/june/Code/Projects/vehicle-telemetry-system/esp32/build/esp-idf/esp_driver_ledc/libesp_driver_ledc.a
